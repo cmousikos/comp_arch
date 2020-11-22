@@ -60,6 +60,38 @@
      * O MinorCPU ,που χρησιμοποιούμε και εμείς, είναι ένα εύελικτο in-order μοντέλο επεξεργαστή που αναπτύχθηκε από την ARM ISA. Ο MinorCPU έχει ένα προσαρμσμένο 4-σταδίων execution pipeline, ενώ έχει διαμορφώσιμες δομές δεδομένων και συμπεριφορά εκτέλεσης. Για αυτό μπορεί να διαμορφωθεί σε μικρο-αρχιτεκτονικό επίπεδο , να μοντελοποιήσει έναν συγκεκριμένο επεξεργαστή.
 * High-Perfomance In-Order CPU.
      * O HPI CPU timing model είναι ρυθμιζόμενος ώστε να είναι αντιπροσωπευτικός ενός in-order ARMv8-A.
+#### a) 
+     MinorCPU 
+     sim_seconds : 0.000032   # Number of seconds simulated
+     system.cpu.numCycles : 64058  # number of cpu cycles simulated
+     system.cpu.committedInsts : 8313   # Number of instructions committed
+     
+     TimingSimpleCPU 
+     sim_seconds : 0.000037    # Number of seconds simulated
+     system.cpu.numCycles : 73088   # number of cpu cycles simulated
+     system.cpu.committedInsts : 8258  # Number of instructions committed
+#### b)
+      Ο χρόνος του MinorCPU είναι μικρότερος από τον χρόνο του TimingSimpleCPU , όπως και αναμέναμε, αφού ο TimingSimpleCPU περιμένει να τελειώσει η προσπέλαση στην μνήμη. Δε διαθέτει pipeling αντιθέτως με το MinorCPU , που διαθέτει 4-σταδιών execution pipeline. Παρόλο που ο TimingSimpleCPU έκανε περισσότερους κύκλους ,εκτέλεσε λιγότερες εντολές από τον MinorCPU καθώς η προσπέλαση στην μνήνη απαιτεί πολλαπλούς κύκλους όπως και αναφέρθηκε.
+
+#### c) 
+Αλλάζουμε πρώτα την συχνότητα από *1GHz* σε *400ΜHz* :
+
+* MinorCPU 
+  * sim_seconds : 0.000041  # Number of seconds simulated
+* TimingSimpleCPU
+  * sim_seconds : 0.000045  # Number of seconds simulated
+
+Παρατηρούμε ότι οι χρόνοι είναι μεγαλύτεροι από πριν, καθώς μειώσαμε την συχνότητα.
+Αλλάζουμε την τεχνολογία μνήμης από την default *DDR3_1600_8x8* σε *DDR4_2400_8x8* :
+
+* MinorCPU 
+  * sim_seconds : 0.000030  # Number of seconds simulated
+* TiminingSimpleCPU
+  * sim_seconds : 0.000036  # Number of seconds simulated
+
+Παρατηρούμε ότι οι χρόνοι είναι μικρότεροι από πριν, όπως και αναμέναμε αφού βάλαμε καλύτερης τεχνολογίας μνήμη.
+
+
 
 
 
